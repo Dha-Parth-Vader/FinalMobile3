@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.myapplication.home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/academic"
+        android:name="com.example.myapplication.ui.Academic_Achievments.AcademicFragment"
+        android:label="Academic Achievements"
+        tools:layout="@layout/fragment_academic2" />
+
+    <fragment
+        android:id="@+id/athletics"
+        android:name="com.example.myapplication.Athletics.AthleticFragment"
+        android:label="Athletics"
+        tools:layout="@layout/fragment_athletics2" />
+    <fragment
+        android:id="@+id/clubs"
+        android:name="com.example.myapplication.clubs.ClubFragment"
+        android:label="Clubs"
+        tools:layout="@layout/fragment_club" />
+    <fragment
+        android:id="@+id/community"
+        android:name="com.example.myapplication.community.CommunityFragment"
+        android:label="Community"
+        tools:layout="@layout/fragment_community2" />
+    <fragment
+        android:id="@+id/performing"
+        android:name="com.example.myapplication.performing.PerformingFragment"
+        android:label="Performing"
+        tools:layout="@layout/fragment_performing2" />
+    <fragment
+        android:id="@+id/add_page"
+        android:name="com.example.myapplication.AddPage.AddPageFragment"
+        android:label="Performing"
+        tools:layout="@layout/add_page" />
+</navigation>
