@@ -38,7 +38,7 @@
         android:padding="8dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="148dp"
             android:layout_height="wrap_content"
             android:text="Description of Achievement: "
             android:textStyle="bold" />
@@ -70,7 +70,7 @@
         <ImageView
             android:id="@+id/imageViewPicture"
             android:layout_width="0dp"
-            android:layout_height="300dp"
+            android:layout_height="122dp"
             android:layout_weight="1"
             android:padding="8dp"
             android:scaleType="fitCenter"
@@ -78,7 +78,7 @@
 
         <Button
             android:id="@+id/buttonSelectPicture"
-            android:layout_width="wrap_content"
+            android:layout_width="131dp"
             android:layout_height="wrap_content"
             android:text="Select Picture" />
 

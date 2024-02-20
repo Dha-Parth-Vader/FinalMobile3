@@ -1,0 +1,8 @@
+This document is to attribute all sources used for images (and where they are used in the app).
+
+athletics.jpg : Photo by Vlad Vasnetsov: https://www.pexels.com/photo/shallow-focus-photo-of-people-playing-track-and-field-2228741/
+academics.jpg : Photo by Pixabay: https://www.pexels.com/photo/books-in-black-wooden-book-shelf-159711/
+performingarts.jpg : Photo by cottonbro studio: https://www.pexels.com/photo/group-of-people-having-a-meeting-6896221/
+clubs.jpg : Photo by Alena Darmel: https://www.pexels.com/photo/a-girl-using-a-laptop-7742817/
+communityservice.jpg : Photo by RDNE Stock project: https://www.pexels.com/photo/a-volunteer-scooping-soup-with-a-ladle-6646987/
+

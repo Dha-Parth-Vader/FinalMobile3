@@ -7,6 +7,7 @@
     tools:context=".ui.Academic_Achievments.AcademicFragment">
 
     <!-- Editable ScrollView -->
+
     <ScrollView
         android:id="@+id/scrollViewhome"
         android:layout_width="match_parent"
@@ -15,8 +16,99 @@
 
         <!-- Your content inside the ScrollView goes here -->
 
-    </ScrollView>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:paddingHorizontal="5sp"
+            android:layout_height="match_parent"
+            tools:context=".ui.Academic_Achievments.AcademicFragment">
 
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:text="Build your portfolio" />
+
+
+
+            <!--<TextView
+                android:id="@+id/AddToYourResume"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="Add content:"
+                />-->
+
+            <!--<ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="850sp">-->
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:padding="5sp"
+                    android:layout_height="match_parent"
+                    tools:context=".ui.Academic_Achievments.AcademicFragment">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/academicsButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="250sp"
+                        android:layout_margin="3sp"
+                        android:padding="0sp"
+                        android:background="@drawable/academics"
+                        android:text="Academics"
+                        android:textColor="#000000" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/athleticsButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="250sp"
+                        android:layout_margin="3sp"
+                        android:padding="0sp"
+                        android:background="@drawable/athletics"
+                        android:text="Athletics"
+                        android:textColor="#000000" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/performingArtsButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="250sp"
+                        android:layout_margin="3sp"
+                        android:padding="0sp"
+                        android:background="@drawable/performingarts"
+                        android:text="Performing arts"
+                        android:textColor="#000000" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/clubsButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="250sp"
+                        android:layout_margin="3sp"
+                        android:padding="0sp"
+                        android:background="@drawable/clubs"
+                        android:text="Organizations"
+                        android:textColor="#000000" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/communityButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="250sp"
+                        android:layout_margin="3sp"
+                        android:padding="0sp"
+                        android:background="@drawable/communityservice"
+                        android:text="Community"
+                        android:textColor="#000000" />
+
+                </LinearLayout>
+
+            <!--</ScrollView>-->
+
+        </LinearLayout>
+
+
+    </ScrollView>
 
 
 </FrameLayout>
