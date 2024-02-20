@@ -6,16 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".clubs.ClubFragment">
 
-    <!-- Editable ScrollView -->
-    <ScrollView
-        android:id="@+id/scrollViewclub"
-        android:layout_width="428dp"
+    <TextView
+        android:id="@+id/noContent"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:contentDescription="academic achievments">
-
-        <!-- Your content inside the ScrollView goes here -->
-
-    </ScrollView>
+        android:gravity="center"
+        android:textSize="30sp"
+        android:text="Add some content!" />
 
     <!-- Floating Action Button (FAB) -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton

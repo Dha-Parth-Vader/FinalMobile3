@@ -6,12 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".ui.Academic_Achievments.AcademicFragment">
 
-    <!-- Editable ScrollView -->
-    <ScrollView
-        android:id="@+id/scrollViewcomm"
+    <TextView
+        android:id="@+id/noContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:contentDescription="academic achievments"/>
+        android:gravity="center"
+        android:textSize="30sp"
+        android:text="Add some content!" />
 
     <!-- Floating Action Button (FAB) -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
