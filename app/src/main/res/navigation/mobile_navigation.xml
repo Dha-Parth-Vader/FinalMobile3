@@ -38,7 +38,7 @@
         tools:layout="@layout/fragment_performing2" />
     <fragment
         android:id="@+id/add_page"
-        android:name="com.example.myapplication.AddPage.AddPageFragment"
+        android:name="com.example.myapplication.addPage.AddPageFragment"
         android:label="Performing"
         tools:layout="@layout/add_page" />
 </navigation>

@@ -1,43 +1,40 @@
-package com.example.myapplication.Athletics;
-
-import androidx.lifecycle.ViewModelProvider;
+package com.example.myapplication;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.myapplication.R;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
+
+import com.example.myapplication.clubs.ClubViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class AthleticFragment extends Fragment {
+public class Club extends Fragment {
 
-    private AthleticViewModel viewModel;
+    private ClubViewModel viewModel;
 
-    public static AthleticFragment newInstance() {
-        return new AthleticFragment();
+    public static Club newInstance() {
+        return new Club();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_athletics2, container, false);
-        viewModel = new ViewModelProvider(this).get(AthleticViewModel.class);
+        View rootView = inflater.inflate(R.layout.fragment_club, container, false);
+        viewModel = new ViewModelProvider(this).get(ClubViewModel.class);
 
         // Find the FAB in the layout
-        FloatingActionButton fab = rootView.findViewById(R.id.addath);
+        FloatingActionButton fab = rootView.findViewById(R.id.addclub);
 
         // Set up click listener for the FAB
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 // Handle FAB click in the Fragment
                 viewModel.onFabClicked();
 
@@ -51,7 +48,7 @@ public class AthleticFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        viewModel = new ViewModelProvider(this).get(AthleticViewModel.class);
+        viewModel = new ViewModelProvider(this).get(ClubViewModel.class);
         // TODO: Use the ViewModel
     }
 }
