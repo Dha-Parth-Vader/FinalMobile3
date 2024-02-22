@@ -15,6 +15,7 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.myapplication.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -34,7 +35,7 @@ public class ShareFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(ShareViewModel.class);
 
         // Find the FAB in the layout
-        FloatingActionButton fab = rootView.findViewById(R.id.buttonLinkedin);
+        Button fab = rootView.findViewById(R.id.buttonLinkedin);
 
         // Set up click listener for the FAB
         fab.setOnClickListener(new View.OnClickListener() {
