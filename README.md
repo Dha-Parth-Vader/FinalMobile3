@@ -1,4 +1,7 @@
-This is our Mobile Application Version 3. It is the Mobile Application for FBLA's Mobile App Development competition. This app is an app that will keep track of a users achievments such as Academic Achivments, Performances, Awards, ect . Here is the planning for this Application: Timeframe (each week starts on a Sunday):
+This is our Mobile Application Version 3. It is the Mobile Application for FBLA's Mobile App Development competition. This app is an app that will keep track of a users achievments such as Academic Achivments, Performances, Awards, ect . Here is the planning for this Application: 
+
+
+Timeframe (each week starts on a Sunday):
 Week 1 (1/14/2024 - 1/20/2024): Finish planning, learn android studio, get started on coding
 Week 2 (1/21/2024 - 1/27/2024): Home page
 Week 3 (1/28/2024 - 2/3/2024): Navigation and debugging
