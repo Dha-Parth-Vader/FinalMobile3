@@ -37,8 +37,13 @@
         android:label="Performing"
         tools:layout="@layout/fragment_performing2" />
     <fragment
+        android:id="@+id/share"
+        android:name="com.example.myapplication.Share.ShareFragment"
+        android:label="Share"
+        tools:layout="@layout/fragment_view" />
+    <fragment
         android:id="@+id/add_page"
         android:name="com.example.myapplication.AddPage.AddPageFragment"
-        android:label="Performing"
+        android:label="Add"
         tools:layout="@layout/add_page" />
 </navigation>
