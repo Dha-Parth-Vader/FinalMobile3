@@ -28,7 +28,10 @@
             android:id="@+id/community"
             android:icon="@android:drawable/ic_menu_call"
             android:title="Community" />
-
+        <item
+            android:id="@+id/honors"
+            android:icon="@drawable/honors"
+            android:title="Honors Classes" />
         <item
             android:id="@+id/share"
             android:icon="@drawable/share"

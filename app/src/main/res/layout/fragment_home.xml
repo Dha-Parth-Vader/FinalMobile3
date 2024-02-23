@@ -101,6 +101,16 @@
                         android:text="Community"
                         android:textColor="#000000" />
 
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/honorsButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="250sp"
+                        android:layout_margin="3sp"
+                        android:padding="0sp"
+                        android:background="@drawable/honors_block"
+                        android:text="Honors"
+                        android:textColor="#000000" />
+
                 </LinearLayout>
 
             <!--</ScrollView>-->

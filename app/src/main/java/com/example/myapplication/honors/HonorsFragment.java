@@ -1,8 +1,7 @@
-package com.example.myapplication.Athletics;
+package com.example.myapplication.honors;
 
 import androidx.lifecycle.ViewModelProvider;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,19 +16,19 @@ import android.view.ViewGroup;
 import com.example.myapplication.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class AthleticFragment extends Fragment {
+public class HonorsFragment extends Fragment {
 
-    private AthleticViewModel viewModel;
+    private HonorsViewModel viewModel;
 
-    public static AthleticFragment newInstance() {
-        return new AthleticFragment();
+    public static HonorsFragment newInstance() {
+        return new HonorsFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_athletics2, container, false);
-        viewModel = new ViewModelProvider(this).get(AthleticViewModel.class);
+        viewModel = new ViewModelProvider(this).get(HonorsViewModel.class);
 
         // Find the FAB in the layout
         FloatingActionButton fab = rootView.findViewById(R.id.addath);
@@ -51,7 +50,7 @@ public class AthleticFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        viewModel = new ViewModelProvider(this).get(AthleticViewModel.class);
+        viewModel = new ViewModelProvider(this).get(HonorsViewModel.class);
         // TODO: Use the ViewModel
     }
 }
