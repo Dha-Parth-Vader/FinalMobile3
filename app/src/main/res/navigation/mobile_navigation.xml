@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/athletics"
-        android:name="com.example.myapplication.Athletics.AthleticFragment"
+        android:name="com.example.myapplication.honors.HonorsFragment"
         android:label="Athletics"
         tools:layout="@layout/fragment_athletics2" />
     <fragment
@@ -36,6 +36,11 @@
         android:name="com.example.myapplication.performing.PerformingFragment"
         android:label="Performing"
         tools:layout="@layout/fragment_performing2" />
+    <fragment
+        android:id="@+id/honors"
+        android:name="com.example.myapplication.honors.HonorsFragment"
+        android:label="Honors"
+        tools:layout="@layout/fragment_honors" />
     <fragment
         android:id="@+id/share"
         android:name="com.example.myapplication.Share.ShareFragment"

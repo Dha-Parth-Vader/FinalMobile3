@@ -1,10 +1,10 @@
-package com.example.myapplication.Athletics;
+package com.example.myapplication.honors;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class AthleticViewModel extends ViewModel {
+public class HonorsViewModel extends ViewModel {
     private MutableLiveData<Boolean> fabClicked = new MutableLiveData<>();
     public LiveData<Boolean> getFabClicked() {
         return fabClicked;
