@@ -14,12 +14,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Googlesignin extends AppCompatActivity {
     private static final int SIGN_IN = 0;
     private GoogleSignInClient googleSignInClient;
     private SignInButton signin;
-
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +38,7 @@ public class Googlesignin extends AppCompatActivity {
                 .requestEmail()
                 .build();
         googleSignInClient = GoogleSignIn.getClient(this, gso);
+
     }
 
     private void signIn() {
@@ -51,7 +53,6 @@ public class Googlesignin extends AppCompatActivity {
         if (requestCode == SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
-            setContentView(R.layout.activity_main);
         }
     }
 
@@ -60,13 +61,13 @@ public class Googlesignin extends AppCompatActivity {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             if (account != null) {
                 // Signed in successfully, show authenticated UI.
-                startActivity(new Intent(Googlesignin.this, MainActivity.class));
+                startActivity(new Intent(this, MainActivity.class));
                 finish(); // Finish the current activity so the user can't return to it.
             }
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             Log.w("error", "signInResult:failed code=" + e.getStatusCode());
-
+            e.printStackTrace();
         }
     }
 
@@ -74,6 +75,7 @@ public class Googlesignin extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+
         if (account != null) {
             startActivity(new Intent(Googlesignin.this, MainActivity.class));
             finish();

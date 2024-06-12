@@ -10,7 +10,7 @@
             android:title="Home" />
         <item
             android:id="@+id/academic"
-            android:icon="@android:drawable/ic_menu_edit"
+            android:icon="@drawable/honors"
             android:title="Academic Acheivments" />
         <item
             android:id="@+id/athletics"
