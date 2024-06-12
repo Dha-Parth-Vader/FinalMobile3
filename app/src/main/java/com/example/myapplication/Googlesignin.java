@@ -1,39 +1,30 @@
 package com.example.myapplication;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.Task;
 
-import org.jetbrains.annotations.NotNull;
-
 public class Googlesignin extends AppCompatActivity {
-    GoogleSignInClient googleSignInClient;
-    private static int SIGN_IN = 0;
-    private GoogleApiClient googleapiclient;
-    SignInButton signin;
+    private static final int SIGN_IN = 0;
+    private GoogleSignInClient googleSignInClient;
+    private SignInButton signin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.googlesignin);
+
         signin = findViewById(R.id.sign_in_button);
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,42 +32,40 @@ public class Googlesignin extends AppCompatActivity {
                 signIn();
             }
         });
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
         googleSignInClient = GoogleSignIn.getClient(this, gso);
-
-
-
     }
+
     private void signIn() {
         Intent signInIntent = googleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, SIGN_IN);
     }
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        System.out.println(requestCode);
-        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+
         if (requestCode == SIGN_IN) {
-            // The Task returned from this call is always completed, no need to attach
-            // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
+            setContentView(R.layout.activity_main);
         }
     }
+
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
-            GoogleSignInAccount account2 = completedTask.getResult(ApiException.class);
-
-            // Signed in successfully, show authenticated UI.
-            Intent intent2 = new Intent(Googlesignin.this,MainActivity.class);
-            startActivity(intent2);
-            System.out.println("hello");
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            if (account != null) {
+                // Signed in successfully, show authenticated UI.
+                startActivity(new Intent(Googlesignin.this, MainActivity.class));
+                finish(); // Finish the current activity so the user can't return to it.
+            }
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w("error", "signInResult:failed code=" + e.getStatusCode());
-            e.toString();
 
         }
     }
@@ -85,9 +74,9 @@ public class Googlesignin extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        if(account != null){
-            Intent intent = new Intent(Googlesignin.this,MainActivity.class);
-            startActivity(intent);
+        if (account != null) {
+            startActivity(new Intent(Googlesignin.this, MainActivity.class));
+            finish();
         }
     }
 }
