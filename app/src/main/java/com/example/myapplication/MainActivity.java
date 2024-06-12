@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         user.put("first", "Ada");
         user.put("last", "Lovelace");
         user.put("born", 1815);
+        System.out.println("hello");
 
 // Add a new document with a generated ID
         db.collection("users").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(getApplicationContext(), "Failure", Toast.LENGTH_LONG).show();
-
+                        e.printStackTrace();
                     }
                 });
 
