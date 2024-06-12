@@ -68,29 +68,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-//
-//        firestore = FirebaseFirestore.getInstance();
-//
-//        Map<String,Object> user = new HashMap<>();
-//        user.put("FirstName", "Aaron");
-//        user.put("LastName", "Huang");
-//        user.put("Description", "Handsome");
-//
-//        firestore.collection("users").add(user)
-//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//            @Override
-//            public void onSuccess(DocumentReference documentReference) {
-//                Toast.makeText(getApplicationContext(),"Success", Toast.LENGTH_LONG).show();
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Toast.makeText(getApplicationContext(),"Fail", Toast.LENGTH_LONG).show();
-//
-//                    }
-//        });
-//        System.out.println("HIHIHIH");
-
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         // Create a new user with a first and last name
         Map<String, Object> user = new HashMap<>();
