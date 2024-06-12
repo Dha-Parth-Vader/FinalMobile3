@@ -8,8 +8,10 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -25,9 +27,12 @@ import com.example.myapplication.databinding.ActivityMainBinding;
 
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,10 +43,12 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
-
+    FirebaseFirestore firestore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //setContentView(R.layout.activity_main);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -60,6 +67,29 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+//
+//        firestore = FirebaseFirestore.getInstance();
+//
+//        Map<String,Object> user = new HashMap<>();
+//        user.put("FirstName", "Aaron");
+//        user.put("LastName", "Huang");
+//        user.put("Description", "Handsome");
+//
+//        firestore.collection("users").add(user)
+//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//            @Override
+//            public void onSuccess(DocumentReference documentReference) {
+//                Toast.makeText(getApplicationContext(),"Success", Toast.LENGTH_LONG).show();
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Toast.makeText(getApplicationContext(),"Fail", Toast.LENGTH_LONG).show();
+//
+//                    }
+//        });
+//        System.out.println("HIHIHIH");
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         // Create a new user with a first and last name
@@ -80,6 +110,21 @@ public class MainActivity extends AppCompatActivity {
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(getApplicationContext(), "Failure", Toast.LENGTH_LONG).show();
                         e.printStackTrace();
+                    }
+                });
+
+        db.collection("users")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
                     }
                 });
 
