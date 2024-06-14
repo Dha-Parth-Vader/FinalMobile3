@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -27,6 +28,9 @@ public class Googlesignin extends AppCompatActivity {
         setContentView(R.layout.googlesignin);
 
         signin = findViewById(R.id.sign_in_button);
+
+        signin.setColorScheme(2);
+        setGooglePlusButtonText("Sign in with Google");
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,6 +48,19 @@ public class Googlesignin extends AppCompatActivity {
     private void signIn() {
         Intent signInIntent = googleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, SIGN_IN);
+    }
+
+    protected void setGooglePlusButtonText(String buttonText) {
+        // Find the TextView that is inside of the SignInButton and set its text
+        for (int i = 0; i < signin.getChildCount(); i++) {
+            View v = signin.getChildAt(i);
+
+            if (v instanceof TextView) {
+                TextView tv = (TextView) v;
+                tv.setText(buttonText);
+                return;
+            }
+        }
     }
 
     @Override
