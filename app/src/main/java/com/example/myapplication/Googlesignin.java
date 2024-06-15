@@ -86,7 +86,7 @@ public class Googlesignin extends AppCompatActivity {
             if (account != null) {
                 // Signed in successfully, show authenticated UI.
                 databaseChecking();
-                startActivity(new Intent(this, MainActivity.class));
+                startActivity(new Intent(Googlesignin.this, MainActivity.class));
                 finish(); // Finish the current activity so the user can't return to it.
             }
         } catch (ApiException e) {
