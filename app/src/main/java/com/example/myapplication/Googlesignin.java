@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,10 +18,14 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Googlesignin extends AppCompatActivity {
     private static final int SIGN_IN = 0;
     private GoogleSignInClient googleSignInClient;
     private SignInButton signin;
+    private GoogleSignInAccount account;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +47,8 @@ public class Googlesignin extends AppCompatActivity {
                 .requestEmail()
                 .build();
         googleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        String emailAddress;
 
     }
 
@@ -75,9 +82,10 @@ public class Googlesignin extends AppCompatActivity {
 
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            account = completedTask.getResult(ApiException.class);
             if (account != null) {
                 // Signed in successfully, show authenticated UI.
+                databaseChecking();
                 startActivity(new Intent(this, MainActivity.class));
                 finish(); // Finish the current activity so the user can't return to it.
             }
@@ -86,6 +94,25 @@ public class Googlesignin extends AppCompatActivity {
             Log.w("error", "signInResult:failed code=" + e.getStatusCode());
             e.printStackTrace();
         }
+    }
+
+    public void databaseChecking() {
+        String firstName = account.getGivenName();
+        String lastName = account.getFamilyName();
+        String displayName = account.getDisplayName();
+        String emailAddress = account.getEmail();
+        Uri pfp = account.getPhotoUrl();
+
+        Map<String, Object> userDataCollected = new HashMap<>();
+        userDataCollected.put("firstName", firstName);
+        userDataCollected.put("lastName", lastName);
+        userDataCollected.put("displayName", displayName);
+        userDataCollected.put("emailAddress", emailAddress);
+        userDataCollected.put("profilePicture", pfp);
+        System.out.println("hello");
+
+        db.collection("users").document().collection("userInfo").add(userDataCollected);
+
     }
 
     @Override
