@@ -39,7 +39,15 @@ public class Googlesignin extends AppCompatActivity {
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 signIn();
+
+                if (account != null) {
+                    Log.d("Hi", "Account exists");
+                    startActivity(new Intent(Googlesignin.this, MainActivity.class));
+                    finish();
+                }
+
             }
         });
 
@@ -47,8 +55,6 @@ public class Googlesignin extends AppCompatActivity {
                 .requestEmail()
                 .build();
         googleSignInClient = GoogleSignIn.getClient(this, gso);
-
-        String emailAddress;
 
     }
 
