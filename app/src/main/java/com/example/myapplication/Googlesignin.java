@@ -27,6 +27,8 @@ public class Googlesignin extends AppCompatActivity {
     private SignInButton signin;
     private GoogleSignInAccount account;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private static final String TAG = "Googlesignin";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,9 +49,6 @@ public class Googlesignin extends AppCompatActivity {
                 .requestEmail()
                 .build();
         googleSignInClient = GoogleSignIn.getClient(this, gso);
-
-        String emailAddress;
-
     }
 
     private void signIn() {
@@ -61,7 +60,6 @@ public class Googlesignin extends AppCompatActivity {
         // Find the TextView that is inside of the SignInButton and set its text
         for (int i = 0; i < signin.getChildCount(); i++) {
             View v = signin.getChildAt(i);
-
             if (v instanceof TextView) {
                 TextView tv = (TextView) v;
                 tv.setText(buttonText);
@@ -85,15 +83,16 @@ public class Googlesignin extends AppCompatActivity {
             account = completedTask.getResult(ApiException.class);
             if (account != null) {
                 // Signed in successfully, show authenticated UI.
+                Log.d(TAG, "signInResult:success - " + account.getEmail());
                 databaseChecking();
-                this.finish();
+
                 Intent myIntent = new Intent(this, MainActivity.class);
-                this.startActivity(myIntent);
-                 // Finish the current activity so the user can't return to it.
+                startActivity(myIntent);
+                finish(); // Finish the current activity so the user can't return to it.
             }
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
-            Log.w("error", "signInResult:failed code=" + e.getStatusCode());
+            Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
             e.printStackTrace();
         }
     }
@@ -111,18 +110,19 @@ public class Googlesignin extends AppCompatActivity {
         userDataCollected.put("displayName", displayName);
         userDataCollected.put("emailAddress", emailAddress);
         userDataCollected.put("profilePicture", pfp);
-        System.out.println("hello");
 
-        db.collection("users").document().collection("userInfo").add(userDataCollected);
-
+        db.collection("users").document().collection("userInfo").add(userDataCollected)
+                .addOnSuccessListener(aVoid -> Log.d(TAG, "User data successfully written!"))
+                .addOnFailureListener(e -> Log.w(TAG, "Error writing user data", e));
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-
         if (account != null) {
+            // Already signed in, proceed to MainActivity
+            Log.d(TAG, "Already signed in - " + account.getEmail());
             startActivity(new Intent(Googlesignin.this, MainActivity.class));
             finish();
         }
