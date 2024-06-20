@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.myapplication.databinding.ActivityMainBinding;
+import com.example.myapplication.databinding.GooglesigninBinding;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -26,13 +28,18 @@ public class Googlesignin extends AppCompatActivity {
     private GoogleSignInClient googleSignInClient;
     private SignInButton signin;
     private GoogleSignInAccount account;
+    private GooglesigninBinding binding;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String TAG = "Googlesignin";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.googlesignin);
+
+        //setContentView(R.layout.googlesignin);
+
+        binding = GooglesigninBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         signin = findViewById(R.id.sign_in_button);
 
@@ -46,8 +53,9 @@ public class Googlesignin extends AppCompatActivity {
 
                 if (account != null) {
                     Log.d("Hi", "Account exists");
-                    startActivity(new Intent(Googlesignin.this, MainActivity.class));
                     finish();
+                    //startActivity(new Intent(Googlesignin.this, MainActivity.class));
+
                 }
 
             }
@@ -94,9 +102,8 @@ public class Googlesignin extends AppCompatActivity {
                 Log.d(TAG, "signInResult:success - " + account.getEmail());
                 databaseChecking();
 
-                Intent myIntent = new Intent(this, MainActivity.class);
-                startActivity(myIntent);
                 finish(); // Finish the current activity so the user can't return to it.
+                //startActivity(new Intent(Googlesignin.this, MainActivity.class));
             }
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
@@ -131,8 +138,8 @@ public class Googlesignin extends AppCompatActivity {
         if (account != null) {
             // Already signed in, proceed to MainActivity
             Log.d(TAG, "Already signed in - " + account.getEmail());
-            startActivity(new Intent(Googlesignin.this, MainActivity.class));
             finish();
+            startActivity(new Intent(Googlesignin.this, MainActivity.class));
         }
     }
 }
