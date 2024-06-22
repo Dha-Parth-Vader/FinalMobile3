@@ -5,7 +5,7 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 
-public class CreatePdf {
+public class CreatePDF {
     public static void main(String[] args) {
         // Specify the path of the PDF file
         String dest = "sample.pdf";

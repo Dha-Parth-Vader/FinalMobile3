@@ -29,7 +29,7 @@ public class Googlesignin extends AppCompatActivity {
     private SignInButton signin;
     private GoogleSignInAccount account;
     private GooglesigninBinding binding;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    public FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String TAG = "Googlesignin";
 
     @Override
@@ -53,8 +53,8 @@ public class Googlesignin extends AppCompatActivity {
 
                 if (account != null) {
                     Log.d("Hi", "Account exists");
+                    startActivity(new Intent(Googlesignin.this, MainActivity.class));
                     finish();
-                    //startActivity(new Intent(Googlesignin.this, MainActivity.class));
 
                 }
 
@@ -101,9 +101,8 @@ public class Googlesignin extends AppCompatActivity {
                 // Signed in successfully, show authenticated UI.
                 Log.d(TAG, "signInResult:success - " + account.getEmail());
                 databaseChecking();
-
-                finish(); // Finish the current activity so the user can't return to it.
-                //startActivity(new Intent(Googlesignin.this, MainActivity.class));
+                startActivity(new Intent(Googlesignin.this, MainActivity.class));
+                finish();
             }
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
@@ -120,26 +119,47 @@ public class Googlesignin extends AppCompatActivity {
         Uri pfp = account.getPhotoUrl();
 
         Map<String, Object> userDataCollected = new HashMap<>();
-        userDataCollected.put("firstName", firstName);
-        userDataCollected.put("lastName", lastName);
-        userDataCollected.put("displayName", displayName);
-        userDataCollected.put("emailAddress", emailAddress);
-        userDataCollected.put("profilePicture", pfp);
+        userDataCollected.put("First Name", firstName);
+        userDataCollected.put("Last Name", lastName);
+        userDataCollected.put("Display Name", displayName);
+        userDataCollected.put("Email Address", emailAddress);
+        userDataCollected.put("Profile Picture", pfp);
 
-        db.collection("users").document().collection("userInfo").add(userDataCollected)
+        Map<String, Object> emptyDefault = new HashMap<>();
+        emptyDefault.put("Default file", true);
+
+        db.collection("Users").document(emailAddress).collection("User Data").document("User Data Document").set(userDataCollected)
                 .addOnSuccessListener(aVoid -> Log.d(TAG, "User data successfully written!"))
                 .addOnFailureListener(e -> Log.w(TAG, "Error writing user data", e));
+        db.collection("Users").document(emailAddress).collection("Academic Achievements").document("Empty Default").set(emptyDefault)
+                .addOnSuccessListener(aVoid -> Log.d(TAG, "User data successfully written!"))
+                .addOnFailureListener(e -> Log.w(TAG, "Error writing user data", e));
+        db.collection("Users").document(emailAddress).collection("Athletic Achievements").document("Empty Default").set(emptyDefault)
+                .addOnSuccessListener(aVoid -> Log.d(TAG, "User data successfully written!"))
+                .addOnFailureListener(e -> Log.w(TAG, "Error writing user data", e));;
+        db.collection("Users").document(emailAddress).collection("Performing Arts Achievements").document("Empty Default").set(emptyDefault)
+                .addOnSuccessListener(aVoid -> Log.d(TAG, "User data successfully written!"))
+                .addOnFailureListener(e -> Log.w(TAG, "Error writing user data", e));;
+        db.collection("Users").document(emailAddress).collection("Clubs and Organizations Achievements").document("Empty Default").set(emptyDefault)
+                .addOnSuccessListener(aVoid -> Log.d(TAG, "User data successfully written!"))
+                .addOnFailureListener(e -> Log.w(TAG, "Error writing user data", e));;
+        db.collection("Users").document(emailAddress).collection("Community Achievements").document("Empty Default").set(emptyDefault)
+                .addOnSuccessListener(aVoid -> Log.d(TAG, "User data successfully written!"))
+                .addOnFailureListener(e -> Log.w(TAG, "Error writing user data", e));;
+        db.collection("Users").document(emailAddress).collection("Honors Achievements").document("Empty Default").set(emptyDefault)
+                .addOnSuccessListener(aVoid -> Log.d(TAG, "User data successfully written!"))
+                .addOnFailureListener(e -> Log.w(TAG, "Error writing user data", e));;
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        /*GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if (account != null) {
             // Already signed in, proceed to MainActivity
             Log.d(TAG, "Already signed in - " + account.getEmail());
-            finish();
             startActivity(new Intent(Googlesignin.this, MainActivity.class));
-        }
+            finish();
+        }*/
     }
 }
