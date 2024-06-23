@@ -41,7 +41,7 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics:22.0.1")
     implementation("com.google.firebase:firebase-firestore:25.0.0")
     implementation("com.google.firebase:firebase-auth:23.0.0")
-
+    implementation("androidx.core:core:1.7.0")
     //noinspection GradleCompatible
     implementation ("com.android.support:appcompat-v7:28.0.0")
     implementation ("com.itextpdf:itext7-core:7.1.14")
