@@ -50,11 +50,23 @@ public class AddPageFragment extends Fragment {
             }
         });
 
+        Button buttonSave = rootView.findViewById(R.id.save);
+        buttonSelectPicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveToDatabase();
+            }
+        });
+
         // ... rest of your code ...
 
         return rootView;
 
 
+    }
+
+    public void saveToDatabase() {
+        
     }
 
     public void selectPicture() {

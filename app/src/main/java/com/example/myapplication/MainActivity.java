@@ -46,11 +46,17 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
 
+    public static String currentPage = "home";
+    // Used to see what page the person is on, here are all of the following options
+    // home, academic, athletic, performing, clubs, community, honors, share
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         //setContentView(R.layout.activity_main);
+
+        MainActivity.currentPage = "home";
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
