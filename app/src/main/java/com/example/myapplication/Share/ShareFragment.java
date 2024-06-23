@@ -17,8 +17,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.myapplication.PdfUtils;
 import com.example.myapplication.R;
+import com.example.myapplication.ShareUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.io.File;
+import java.io.IOException;
 
 public class ShareFragment extends Fragment {
 
@@ -31,22 +36,22 @@ public class ShareFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_view, container, false);
-        viewModel = new ViewModelProvider(this).get(ShareViewModel.class);
+        View view = inflater.inflate(R.layout.fragment_view, container, false);
+        Button shareButton = view.findViewById(R.id.buttonPDF);
 
-        // Find the FAB in the layout
-        Button fab = rootView.findViewById(R.id.buttonLinkedin);
-
-        // Set up click listener for the FAB
-        fab.setOnClickListener(new View.OnClickListener() {
+        shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                //Uri uri = Uri.parse("http://www.google.com"); // missing 'http://' will cause crashed
-                //Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                //startActivity(intent);
+            public void onClick(View v) {
+                try {
+                    File pdfFile = PdfUtils.createPdf(getContext());
+                    ShareUtils.sharePdf(getContext(), pdfFile);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
-        return rootView;
+
+        return view;
     }
 
     @Override

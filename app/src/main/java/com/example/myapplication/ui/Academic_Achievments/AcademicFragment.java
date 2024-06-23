@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import com.example.myapplication.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import com.example.myapplication.MainActivity;
+
 
 public class AcademicFragment extends Fragment {
 
@@ -30,6 +32,8 @@ public class AcademicFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_academic2, container, false);
         viewModel = new ViewModelProvider(this).get(AcademicViewModel.class);
+
+        MainActivity.currentPage = "academic";
 
         // Find the FAB in the layout
         FloatingActionButton fab = rootView.findViewById(R.id.addaca);

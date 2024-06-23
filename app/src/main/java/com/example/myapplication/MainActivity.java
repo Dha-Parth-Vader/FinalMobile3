@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -44,12 +45,18 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
-    FirebaseFirestore firestore;
+
+    public static String currentPage = "home";
+    // Used to see what page the person is on, here are all of the following options
+    // home, academic, athletic, performing, clubs, community, honors, share
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+        //setContentView(R.layout.activity_main);
+
+        MainActivity.currentPage = "home";
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -71,8 +78,11 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        
+
         // Create a new user with a first and last name
-        Map<String, Object> user = new HashMap<>();
+        /* Map<String, Object> user = new HashMap<>();
         user.put("first", "Ada");
         user.put("last", "Lovelace");
         user.put("born", 1815);
@@ -105,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                             Log.w(TAG, "Error getting documents.", task.getException());
                         }
                     }
-                });
+                });*/
 
 
     }
@@ -117,6 +127,8 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+
 
 
 
