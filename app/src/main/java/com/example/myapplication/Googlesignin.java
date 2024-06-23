@@ -158,13 +158,13 @@ public class Googlesignin extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        /*GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if (account != null) {
             // Already signed in, proceed to MainActivity
             Log.d(TAG, "Already signed in - " + account.getEmail());
             userEmail = account.getEmail();
             startActivity(new Intent(Googlesignin.this, MainActivity.class));
             finish();
-        }*/
+        }
     }
 }
