@@ -30,6 +30,8 @@ public class Googlesignin extends AppCompatActivity {
     private GoogleSignInAccount account;
     private GooglesigninBinding binding;
     public FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    public static String userEmail;
     private static final String TAG = "Googlesignin";
 
     @Override
@@ -125,6 +127,8 @@ public class Googlesignin extends AppCompatActivity {
         userDataCollected.put("Email Address", emailAddress);
         userDataCollected.put("Profile Picture", pfp);
 
+        userEmail = emailAddress;
+
         Map<String, Object> emptyDefault = new HashMap<>();
         emptyDefault.put("Default file", true);
 
@@ -158,6 +162,7 @@ public class Googlesignin extends AppCompatActivity {
         if (account != null) {
             // Already signed in, proceed to MainActivity
             Log.d(TAG, "Already signed in - " + account.getEmail());
+            userEmail = account.getEmail();
             startActivity(new Intent(Googlesignin.this, MainActivity.class));
             finish();
         }*/
