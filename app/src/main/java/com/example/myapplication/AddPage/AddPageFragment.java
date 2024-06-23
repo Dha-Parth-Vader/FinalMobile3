@@ -2,10 +2,20 @@ package com.example.myapplication.AddPage;
 
 import static android.app.Activity.RESULT_OK;
 
+import com.example.myapplication.Googlesignin;
+import com.example.myapplication.MainActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,20 +29,33 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import android.Manifest;
 import com.example.myapplication.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.AggregateQuery;
+import com.google.firebase.firestore.AggregateQuerySnapshot;
+import com.google.firebase.firestore.AggregateSource;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+
+import java.io.File;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AddPageFragment extends Fragment {
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final int PERMISSION_REQUEST_READ_EXTERNAL_STORAGE = 2;
     private AddPageViewModel mViewModel;
+    private Uri imageUsed = null;
 
     public static AddPageFragment newInstance() {
         return new AddPageFragment();
@@ -55,7 +78,7 @@ public class AddPageFragment extends Fragment {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveToDatabase();
+                saveToDatabase(rootView);
             }
         });
 
@@ -66,8 +89,46 @@ public class AddPageFragment extends Fragment {
 
     }
 
-    public void saveToDatabase() {
+    public void saveToDatabase(View rootView) {
 
+        /*EditText achievementName = rootView.findViewById(R.id.editTextName);
+        EditText achievementDesc = rootView.findViewById(R.id.editTextDescription);
+        String attributeValue = "";
+
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document document = builder.parse((InputStream) getResources().getLayout(R.layout.add_page));
+            document.getDocumentElement().normalize();
+            attributeValue = document.getElementById("imageViewPicture").getAttribute("attributeName");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (!hasNoText(achievementName)
+                && !hasNoText(achievementDesc)
+                && attributeValue != "@android:drawable/ic_menu_gallery") {
+
+        }*/
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        Map<String, Object> userDataCollected = new HashMap<>();
+
+        String achievementName = ((EditText)(rootView.findViewById(R.id.editTextName))).getText().toString();
+        String achievementDesc = ((EditText)(rootView.findViewById(R.id.editTextDescription))).getText().toString();
+
+        userDataCollected.put("Achievement Name", achievementName);
+        userDataCollected.put("Achievement Description", achievementDesc);
+        userDataCollected.put("Achievement Image", imageUsed);
+
+        db.collection("Users").document(Googlesignin.userEmail).collection(MainActivity.activityType).document(achievementName).set(userDataCollected);
+
+    }
+
+    private boolean hasNoText(EditText text) {
+        return (text.getText().toString().isEmpty());
     }
 
     public void selectPicture() {
@@ -113,6 +174,7 @@ public class AddPageFragment extends Fragment {
             // For example, display it in an ImageView
             ImageView imageView = getView().findViewById(R.id.imageViewPicture);
             imageView.setImageURI(selectedImageUri);
+            imageUsed = selectedImageUri;
         }
     }
 }

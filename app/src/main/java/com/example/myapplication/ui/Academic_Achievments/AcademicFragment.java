@@ -33,7 +33,7 @@ public class AcademicFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_academic2, container, false);
         viewModel = new ViewModelProvider(this).get(AcademicViewModel.class);
 
-        MainActivity.currentPage = "academic";
+        MainActivity.activityType = "Academic Achievements";
 
         // Find the FAB in the layout
         FloatingActionButton fab = rootView.findViewById(R.id.addaca);
