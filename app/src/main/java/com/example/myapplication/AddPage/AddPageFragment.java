@@ -2,6 +2,7 @@ package com.example.myapplication.AddPage;
 
 import static android.app.Activity.RESULT_OK;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
@@ -50,8 +51,8 @@ public class AddPageFragment extends Fragment {
             }
         });
 
-        Button buttonSave = rootView.findViewById(R.id.save);
-        buttonSelectPicture.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton buttonSave = rootView.findViewById(R.id.save);
+        buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 saveToDatabase();
@@ -66,7 +67,7 @@ public class AddPageFragment extends Fragment {
     }
 
     public void saveToDatabase() {
-        
+
     }
 
     public void selectPicture() {
