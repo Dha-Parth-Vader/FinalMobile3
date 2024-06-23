@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import com.example.myapplication.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import com.example.myapplication.MainActivity;
+
 
 public class AcademicFragment extends Fragment {
 
