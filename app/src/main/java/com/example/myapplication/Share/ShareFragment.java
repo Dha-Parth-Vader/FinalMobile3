@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.myapplication.MainActivity;
 import com.example.myapplication.PdfUtils;
 import com.example.myapplication.R;
 import com.example.myapplication.ShareUtils;
@@ -38,7 +39,7 @@ public class ShareFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_view, container, false);
         Button shareButton = view.findViewById(R.id.buttonPDF);
-
+        MainActivity.currentPage = "share";
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
