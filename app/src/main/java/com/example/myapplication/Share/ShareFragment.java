@@ -39,7 +39,7 @@ public class ShareFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_view, container, false);
         Button shareButton = view.findViewById(R.id.buttonPDF);
-        MainActivity.currentPage = "share";
+        MainActivity.activityType = "share";
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

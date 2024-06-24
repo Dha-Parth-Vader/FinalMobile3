@@ -19,7 +19,6 @@ public class PdfUtils {
         PdfDocument.Page page = document.startPage(pageInfo);
 
         Paint paint = new Paint();
-<<<<<<< Updated upstream
         int fontSize = 35;
         paint.setTextSize(35);
         paint.setColor(Color.BLACK);
@@ -48,11 +47,8 @@ public class PdfUtils {
 
 
         //finishing
-
-=======
         paint.setTextSize(16);
         page.getCanvas().drawText("Hello World", 80, 50, paint);
->>>>>>> Stashed changes
         document.finishPage(page);
 
         File pdfFile = new File(context.getExternalCacheDir(), "hello_world.pdf");
