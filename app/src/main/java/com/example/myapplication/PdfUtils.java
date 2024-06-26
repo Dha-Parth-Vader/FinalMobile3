@@ -5,13 +5,45 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
+import android.util.Log;
+
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PdfUtils {
 
     public static File createPdf(Context context) throws IOException {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference academicAchievementsRef = db.collection("users")
+                .document("parthdhaulakhandi@gmail.com")
+                .collection("Academic Achievements");
+
+        academicAchievementsRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                List<String> achievements = new ArrayList<>();
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String achievement = document.getString("Academic Name");
+                    if (achievement != null) {
+                        achievements.add(achievement);
+                    }
+                }
+
+                try {
+                    createPdf(context);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Log.w("PdfUtils", "Error getting documents.", task.getException());
+            }
+        });
         PdfDocument document = new PdfDocument();
         int canvasWidth = 612;
         int canvasHeight = 792;
