@@ -45,7 +45,7 @@
 
     <fragment
         android:id="@+id/academic"
-        android:name="com.example.myapplication.ui.Academic_Achievments.AcademicFragment"
+        android:name="com.example.myapplication.ui.academics.AcademicFragment"
         android:label="Academic Achievements"
         tools:layout="@layout/fragment_academic2" />
 

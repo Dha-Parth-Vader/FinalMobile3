@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.Academic_Achievments.AcademicFragment">
+    tools:context=".ui.academics.AcademicFragment">
 
     <!-- Editable ScrollView -->
 
@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:paddingHorizontal="5sp"
             android:layout_height="match_parent"
-            tools:context=".ui.Academic_Achievments.AcademicFragment">
+            tools:context=".ui.academics.AcademicFragment">
 
             <TextView
                 android:id="@+id/textView2"
@@ -49,7 +49,7 @@
                     android:layout_width="match_parent"
                     android:padding="5sp"
                     android:layout_height="match_parent"
-                    tools:context=".ui.Academic_Achievments.AcademicFragment">
+                    tools:context=".ui.academics.AcademicFragment">
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/academicsButton"

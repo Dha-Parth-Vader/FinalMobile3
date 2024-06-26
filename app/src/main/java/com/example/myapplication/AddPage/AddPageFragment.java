@@ -75,7 +75,8 @@ public class AddPageFragment extends Fragment {
         });
 
         FloatingActionButton buttonSave = rootView.findViewById(R.id.save);
-        buttonSave.setOnClickListener(new View.OnClickListener() {
+        buttonSave.setOnClickListener(
+                new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 saveToDatabase(rootView);

@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.Academic_Achievments;
+package com.example.myapplication.ui.academics;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
