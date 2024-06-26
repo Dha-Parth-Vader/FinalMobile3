@@ -80,6 +80,7 @@ public class AddPageFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 saveToDatabase(rootView);
+                Navigation.findNavController(view).navigate(R.id.academic);
             }
         });
 
