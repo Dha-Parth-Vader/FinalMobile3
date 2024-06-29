@@ -19,7 +19,7 @@
         <item
             android:id="@+id/performing"
             android:icon="@android:drawable/ic_menu_gallery"
-            android:title="Performing arts" />
+            android:title="Performing Arts" />
         <item
             android:id="@+id/clubs"
             android:icon="@android:drawable/sym_action_email"

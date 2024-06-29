@@ -51,9 +51,8 @@
 
     <fragment
         android:id="@+id/athletics"
-        android:name="com.example.myapplication.honors.HonorsFragment"
-        android:label="Athletics"
-        tools:layout="@layout/fragment_athletics2" />
+        android:name="com.example.myapplication.athletics.AthleticFragment"
+        android:label="Athletics" />
     <fragment
         android:id="@+id/clubs"
         android:name="com.example.myapplication.clubs.ClubFragment"
