@@ -130,7 +130,7 @@ public class Googlesignin extends AppCompatActivity {
         userEmail = emailAddress;
 
         Map<String, Object> emptyDefault = new HashMap<>();
-        emptyDefault.put("Default file", true);
+        emptyDefault.put("Achievement", false);
 
         db.collection("Users").document(emailAddress).collection("User Data").document("User Data Document").set(userDataCollected)
                 .addOnSuccessListener(aVoid -> Log.d(TAG, "User data successfully written!"))
