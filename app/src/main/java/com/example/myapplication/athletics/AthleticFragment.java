@@ -25,6 +25,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class AthleticFragment extends Fragment {
 
@@ -59,7 +61,7 @@ public class AthleticFragment extends Fragment {
         adapter = new AthleticAdapter(new ArrayList<String>());
         recyclerView.setAdapter(adapter);
 
-        FloatingActionButton fab = rootView.findViewById(R.id.addaca);
+        FloatingActionButton fab = rootView.findViewById(R.id.addAthletic);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

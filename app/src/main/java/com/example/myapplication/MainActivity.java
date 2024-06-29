@@ -40,12 +40,6 @@ import java.util.Map;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-
-
-
-
-
-
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
 

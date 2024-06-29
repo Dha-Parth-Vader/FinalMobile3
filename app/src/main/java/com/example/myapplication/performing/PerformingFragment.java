@@ -61,7 +61,7 @@ public class PerformingFragment extends Fragment {
         adapter = new PerformingAdapter(new ArrayList<String>());
         recyclerView.setAdapter(adapter);
 
-        FloatingActionButton fab = rootView.findViewById(R.id.addaca);
+        FloatingActionButton fab = rootView.findViewById(R.id.addPerforming);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

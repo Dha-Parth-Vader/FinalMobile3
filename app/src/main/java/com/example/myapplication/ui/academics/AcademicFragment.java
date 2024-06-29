@@ -61,7 +61,7 @@ public class AcademicFragment extends Fragment {
         adapter = new AcademicAdapter(new ArrayList<String>());
         recyclerView.setAdapter(adapter);
 
-        FloatingActionButton fab = rootView.findViewById(R.id.addaca);
+        FloatingActionButton fab = rootView.findViewById(R.id.addAcademic);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
