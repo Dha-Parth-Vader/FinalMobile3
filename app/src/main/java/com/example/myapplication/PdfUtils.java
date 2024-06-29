@@ -24,6 +24,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,13 +35,11 @@ public class PdfUtils {
     private static ArrayList<String> currentAchievementNames = new ArrayList<String>();
     private static ArrayList<String> currentAchievementDescriptions = new ArrayList<String>();
     private static ArrayList<Uri> currentAchievementPhotos = new ArrayList<Uri>();
-    private static int[] achievementSeparations = new int[7];
+    private static ArrayList<String> achievementSeparations = new ArrayList<String>();
     public static int i = 0;
 
     public static File createPdf(Context context) throws IOException {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference userRef = db.collection("Users")
-                .document(Googlesignin.userEmail);
         String[] achievementList = {"Academic Achievements",
                                 "Athletic Achievements",
                                 "Clubs and Organizations Achievements",
@@ -49,17 +49,23 @@ public class PdfUtils {
 
         for (i = 0; i < achievementList.length; i++) {
 
-            CollectionReference achievementType = userRef.collection(achievementList[i]);
+            Log.d("Email", Googlesignin.userEmail);
+            Log.d("Achievement type", achievementList[i]);
 
-            achievementType
-                    .whereEqualTo("Achievement", true)
+            db.collection("Users")
+                    .document(Googlesignin.userEmail)
+                    .collection(achievementList[i])
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
-                                    addAchievements(document, i);
+                                    try {
+                                        addAchievements(document);
+                                    } catch (URISyntaxException e) {
+                                        throw new RuntimeException(e);
+                                    }
                                 }
                             } else {
                                 Log.d("No fetch", "Error getting documents: ", task.getException());
@@ -68,10 +74,6 @@ public class PdfUtils {
                     });
 
 
-        }
-
-        for (int j = 0; j < achievementSeparations.length; j++) {
-            Log.d("Hi", "" + achievementSeparations[j]);
         }
 
 
@@ -132,43 +134,33 @@ public class PdfUtils {
         return pdfFile;
     }
 
-    public static void addAchievements(QueryDocumentSnapshot document, int i) {
-        currentAchievementNames.add((String)(document.get("Achievement Name")));
-        currentAchievementDescriptions.add((String)(document.get("Achievement Description")));
-        if (document.get("Achievement Image") != null) {
-            currentAchievementPhotos.add((Uri)(document.get("Achievement Image")));
-        } else {
-            currentAchievementPhotos.add(null);
+    public static void addAchievements(QueryDocumentSnapshot document) throws URISyntaxException {
+
+        String[] achievementList = {"Academic Achievements",
+                "Athletic Achievements",
+                "Clubs and Organizations Achievements",
+                "Community Achievements",
+                "Honors Achievements",
+                "Performing Arts Achievements"};
+
+        if (((String)(document.get("Achievement Name"))) != null && !((String)(document.get("Achievement Name"))).equals("Empty Default")) {
+
+            currentAchievementNames.add((String) (document.get("Achievement Name")));
+            currentAchievementDescriptions.add((String) (document.get("Achievement Description")));
+            if (document.get("Achievement Image") != null) {
+                currentAchievementPhotos.add(Uri.parse((String)(document.get("Achievement Image"))));
+            } else {
+                currentAchievementPhotos.add(null);
+            }
+
+            achievementSeparations.add(document.getReference().getParent().getId());
+
+            Log.d("currentAchievementNames", currentAchievementNames.toString());
+            Log.d("currentAchievementDescriptions", currentAchievementDescriptions.toString());
+            Log.d("currentAchievementImage", currentAchievementPhotos.toString());
+            Log.d("achievementSeparations", achievementSeparations.toString());
         }
-
-        achievementSeparations[i] = currentAchievementNames.size() - 1;
     }
-
-    /*private void fetchDocumentIds() {
-        db.collection("Users").document(Googlesignin.userEmail).collection(MainActivity.activityType)
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot result) {
-                        ArrayList<String> documentIds = new ArrayList<>();
-                        for (DocumentSnapshot document : result.getDocuments()) {
-                            documentIds.add(document.getId());
-                        }
-
-                        // Log the document IDs or do something with them
-                        for (String id : documentIds) {
-                            Log.d("Document ID", id);
-                           // adapter.updateData(documentIds);
-                        }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("Firestore", "Error getting documents.", e);
-                    }
-                });
-    }*/
 
     public static PageWrapper longTextStuff(String longText, Paint paint, float x, PageWrapper pageWrapper) {
         PdfDocument document = pageWrapper.getDocument();
