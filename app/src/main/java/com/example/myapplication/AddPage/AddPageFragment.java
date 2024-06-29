@@ -48,8 +48,6 @@ import com.google.firebase.firestore.Query;
 
 import java.io.File;
 import java.io.InputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -138,14 +136,11 @@ public class AddPageFragment extends Fragment {
         String achievementName = ((EditText)(rootView.findViewById(R.id.editTextName))).getText().toString();
         String achievementDesc = ((EditText)(rootView.findViewById(R.id.editTextDescription))).getText().toString();
 
-        userDataCollected.put("Achievement", true);
         userDataCollected.put("Achievement Name", achievementName);
         userDataCollected.put("Achievement Description", achievementDesc);
         userDataCollected.put("Achievement Image", imageUsed);
 
-        if (!achievementName.isEmpty()) {
-            db.collection("Users").document(Googlesignin.userEmail).collection(MainActivity.activityType).document(achievementName).set(userDataCollected);
-        }
+        db.collection("Users").document(Googlesignin.userEmail).collection(MainActivity.activityType).document(achievementName).set(userDataCollected);
 
     }
 

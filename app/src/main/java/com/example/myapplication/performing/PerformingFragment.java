@@ -112,6 +112,7 @@ public class PerformingFragment extends Fragment {
 
                         // Log the document IDs or do something with them
                         for (String id : documentIds) {
+                            Log.d("Document ID", id);
                             adapter.updateData(documentIds);
                         }
                     }
