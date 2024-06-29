@@ -80,7 +80,22 @@ public class AddPageFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 saveToDatabase(rootView);
-                Navigation.findNavController(view).navigate(R.id.academic);
+
+                if (MainActivity.activityType == "Academic Achievements") {
+                    Navigation.findNavController(view).navigate(R.id.academic);
+                } else if (MainActivity.activityType == "Athletic Achievements") {
+                    Navigation.findNavController(view).navigate(R.id.athletics);
+                } else if (MainActivity.activityType == "Clubs and Organizations Achievements") {
+                    Navigation.findNavController(view).navigate(R.id.clubs);
+                } else if (MainActivity.activityType == "Community Achievements") {
+                    Navigation.findNavController(view).navigate(R.id.community);
+                } else if (MainActivity.activityType == "Honors Achievements") {
+                    Navigation.findNavController(view).navigate(R.id.honors);
+                } else if (MainActivity.activityType == "Performing Arts Achievements") {
+                    Navigation.findNavController(view).navigate(R.id.performing);
+                } else {
+                    Log.w("Problem", "Should never display");
+                }
             }
         });
 
