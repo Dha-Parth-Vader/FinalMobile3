@@ -5,11 +5,21 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
+import android.net.Uri;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -19,31 +29,52 @@ import java.util.List;
 
 public class PdfUtils {
 
+
+    private static ArrayList<String> currentAchievementNames = new ArrayList<String>();
+    private static ArrayList<String> currentAchievementDescriptions = new ArrayList<String>();
+    private static ArrayList<Uri> currentAchievementPhotos = new ArrayList<Uri>();
+    private static int[] achievementSeparations = new int[7];
+    public static int i = 0;
+
     public static File createPdf(Context context) throws IOException {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference academicAchievementsRef = db.collection("users")
-                .document("parthdhaulakhandi@gmail.com")
-                .collection("Academic Achievements");
+        DocumentReference userRef = db.collection("Users")
+                .document(Googlesignin.userEmail);
+        String[] achievementList = {"Academic Achievements",
+                                "Athletic Achievements",
+                                "Clubs and Organizations Achievements",
+                                "Community Achievements",
+                                "Honors Achievements",
+                                "Performing Arts Achievements"};
 
-        academicAchievementsRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                List<String> achievements = new ArrayList<>();
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    String achievement = document.getString("Academic Name");
-                    if (achievement != null) {
-                        achievements.add(achievement);
-                    }
-                }
+        for (i = 0; i < achievementList.length; i++) {
 
-                try {
-                    createPdf(context);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                Log.w("PdfUtils", "Error getting documents.", task.getException());
-            }
-        });
+            CollectionReference achievementType = userRef.collection(achievementList[i]);
+
+            achievementType
+                    .whereEqualTo("Achievement", true)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    addAchievements(document, i);
+                                }
+                            } else {
+                                Log.d("No fetch", "Error getting documents: ", task.getException());
+                            }
+                        }
+                    });
+
+
+        }
+
+        for (int j = 0; j < achievementSeparations.length; j++) {
+            Log.d("Hi", "" + achievementSeparations[j]);
+        }
+
+
         PdfDocument document = new PdfDocument();
         int canvasWidth = 612;
         int canvasHeight = 792;
@@ -100,6 +131,44 @@ public class PdfUtils {
 
         return pdfFile;
     }
+
+    public static void addAchievements(QueryDocumentSnapshot document, int i) {
+        currentAchievementNames.add((String)(document.get("Achievement Name")));
+        currentAchievementDescriptions.add((String)(document.get("Achievement Description")));
+        if (document.get("Achievement Image") != null) {
+            currentAchievementPhotos.add((Uri)(document.get("Achievement Image")));
+        } else {
+            currentAchievementPhotos.add(null);
+        }
+
+        achievementSeparations[i] = currentAchievementNames.size() - 1;
+    }
+
+    /*private void fetchDocumentIds() {
+        db.collection("Users").document(Googlesignin.userEmail).collection(MainActivity.activityType)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot result) {
+                        ArrayList<String> documentIds = new ArrayList<>();
+                        for (DocumentSnapshot document : result.getDocuments()) {
+                            documentIds.add(document.getId());
+                        }
+
+                        // Log the document IDs or do something with them
+                        for (String id : documentIds) {
+                            Log.d("Document ID", id);
+                           // adapter.updateData(documentIds);
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("Firestore", "Error getting documents.", e);
+                    }
+                });
+    }*/
 
     public static PageWrapper longTextStuff(String longText, Paint paint, float x, PageWrapper pageWrapper) {
         PdfDocument document = pageWrapper.getDocument();
