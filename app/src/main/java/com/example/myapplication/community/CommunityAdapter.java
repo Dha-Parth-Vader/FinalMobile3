@@ -1,13 +1,11 @@
-package com.example.myapplication.ui.academics;
+package com.example.myapplication.community;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Googlesignin;
@@ -17,13 +15,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
 
-public class AcademicAdapter extends RecyclerView.Adapter<AcademicAdapter.ViewHolder> {
+public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.ViewHolder> {
     private ArrayList<String> recyclerData;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -32,12 +25,12 @@ public class AcademicAdapter extends RecyclerView.Adapter<AcademicAdapter.ViewHo
 
         public ViewHolder(View itemView) {
             super(itemView);
-            textView = itemView.findViewById(R.id.academicRecyclerTextView);
-            button = itemView.findViewById(R.id.deleteButtonAcademic);
+            textView = itemView.findViewById(R.id.communityRecyclerTextView);
+            button = itemView.findViewById(R.id.deleteButtonCommunity);
         }
     }
 
-    public AcademicAdapter(ArrayList<String> newList) {
+    public CommunityAdapter(ArrayList<String> newList) {
         this.recyclerData = newList;
     }
 
@@ -45,7 +38,7 @@ public class AcademicAdapter extends RecyclerView.Adapter<AcademicAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.academic_recycler, parent, false);
+                .inflate(R.layout.community_recycler, parent, false);
         return new ViewHolder(view);
     }
 

@@ -25,8 +25,8 @@ public class PerformingAdapter extends RecyclerView.Adapter<PerformingAdapter.Vi
 
         public ViewHolder(View itemView) {
             super(itemView);
-            textView = itemView.findViewById(R.id.academicRecyclerTextView);
-            button = itemView.findViewById(R.id.deleteButton);
+            textView = itemView.findViewById(R.id.performingRecyclerTextView);
+            button = itemView.findViewById(R.id.deleteButtonPerforming);
         }
     }
 
@@ -38,7 +38,7 @@ public class PerformingAdapter extends RecyclerView.Adapter<PerformingAdapter.Vi
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.academic_recycler, parent, false);
+                .inflate(R.layout.performing_recycler, parent, false);
         return new ViewHolder(view);
     }
 

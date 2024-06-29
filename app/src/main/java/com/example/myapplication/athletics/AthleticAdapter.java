@@ -25,8 +25,8 @@ public class AthleticAdapter extends RecyclerView.Adapter<AthleticAdapter.ViewHo
 
         public ViewHolder(View itemView) {
             super(itemView);
-            textView = itemView.findViewById(R.id.academicRecyclerTextView);
-            button = itemView.findViewById(R.id.deleteButton);
+            textView = itemView.findViewById(R.id.athleticRecyclerTextView);
+            button = itemView.findViewById(R.id.deleteButtonAthletic);
         }
     }
 
@@ -38,7 +38,7 @@ public class AthleticAdapter extends RecyclerView.Adapter<AthleticAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.academic_recycler, parent, false);
+                .inflate(R.layout.athletic_recycler, parent, false);
         return new ViewHolder(view);
     }
 
