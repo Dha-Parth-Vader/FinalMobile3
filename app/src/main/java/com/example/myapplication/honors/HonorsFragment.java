@@ -27,11 +27,11 @@ public class HonorsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_athletics2, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_honors, container, false);
         viewModel = new ViewModelProvider(this).get(HonorsViewModel.class);
 
         // Find the FAB in the layout
-        FloatingActionButton fab = rootView.findViewById(R.id.addath);
+        FloatingActionButton fab = rootView.findViewById(R.id.addaca);
 
         // Set up click listener for the FAB
         fab.setOnClickListener(new View.OnClickListener() {

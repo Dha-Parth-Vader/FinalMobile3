@@ -1,29 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".clubs.ClubFragment">
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/noContent"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="30sp"
-        android:text="Add some content!" />
+        tools:context=".honors.HonorsFragment">
 
-    <!-- Floating Action Button (FAB) -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addclub"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        app:backgroundTint="#00BCD4"
-        app:elevation="6dp"
-        app:srcCompat="@android:drawable/ic_input_add"
-        android:contentDescription="add academic"/>
+        <TextView
+            android:id="@+id/noContentHonor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="30sp"
+            android:text="Add some content!" />
 
-</FrameLayout>
+        <!-- Floating Action Button (FAB) -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addHonor"
+            android:layout_width="wrap_content"
+            android:layout_height="78dp"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:contentDescription="add academic"
+            app:backgroundTint="#00BCD4"
+            app:elevation="6dp"
+            app:srcCompat="@android:drawable/ic_input_add" />
+
+        <ScrollView
+            android:id="@+id/AC2ScrollViewHonor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewHonor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="20sp"/>
+
+    </FrameLayout>
+
+</LinearLayout>
+
