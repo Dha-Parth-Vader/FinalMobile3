@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
+import android.media.Image;
 import android.net.Uri;
 import android.util.Log;
 
@@ -20,6 +21,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Source;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -36,10 +38,16 @@ public class PdfUtils {
     private static ArrayList<String> currentAchievementDescriptions = new ArrayList<String>();
     private static ArrayList<Uri> currentAchievementPhotos = new ArrayList<Uri>();
     private static ArrayList<String> achievementSeparations = new ArrayList<String>();
-    public static int i = 0;
+    private static int i = 0;
+
+    private static FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private static DocumentReference userDataDoc = db
+            .collection("Users")
+            .document(Googlesignin.userEmail)
+            .collection("User Data")
+            .document("User Data Document");
 
     public static File createPdf(Context context) throws IOException {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
         String[] achievementList = {"Academic Achievements",
                                 "Athletic Achievements",
                                 "Clubs and Organizations Achievements",
@@ -77,6 +85,8 @@ public class PdfUtils {
         }
 
 
+
+
         PdfDocument document = new PdfDocument();
         int canvasWidth = 612;
         int canvasHeight = 792;
@@ -84,12 +94,44 @@ public class PdfUtils {
         PdfDocument.Page page = document.startPage(pageInfo);
 
         Paint paint = new Paint();
+
+
+        db.collection("Users")
+                .document(Googlesignin.userEmail)
+                .collection("User Data")
+                .document("User Data Document")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+
+                            String fullName = (String)(task.getResult().get("First Name")) + (String)(task.getResult().get("Last Name"));
+                            String email = (String)(task.getResult().get("Email Address"));
+
+                        } else {
+                            Log.d("No fetch", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+
+        
+
+
+
+
+
+
+
+
         int fontSize = 35;
         paint.setTextSize(fontSize);
         paint.setColor(Color.BLACK);
         Typeface typeface = Typeface.create("sans-serif", Typeface.BOLD);
         paint.setTypeface(typeface);
-        String name = "Aaron Huang";
+
+
+        String name = "";
 
         float textWidth = paint.measureText(name);
 
