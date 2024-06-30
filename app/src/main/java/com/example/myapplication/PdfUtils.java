@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -40,6 +41,8 @@ public class PdfUtils {
     private static ArrayList<String> achievementSeparations = new ArrayList<String>();
     private static int i = 0;
 
+    private static String fullName, email;
+
     private static FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static DocumentReference userDataDoc = db
             .collection("Users")
@@ -61,20 +64,17 @@ public class PdfUtils {
             Log.d("Achievement type", achievementList[i]);
 
             db.collection("Users")
-                    .document(Googlesignin.userEmail)
-                    .collection(achievementList[i])
+                    .document(""+Googlesignin.userEmail)
+                    .collection(""+achievementList[i])
                     .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    try {
-                                        addAchievements(document);
-                                    } catch (URISyntaxException e) {
-                                        throw new RuntimeException(e);
-                                    }
-                                }
+
+                                String fullName = (String)(task.getResult().get("First Name")) + (String)(task.getResult().get("Last Name"));
+                                String email = (String)(task.getResult().get("Email Address"));
+
                             } else {
                                 Log.d("No fetch", "Error getting documents: ", task.getException());
                             }
@@ -97,32 +97,20 @@ public class PdfUtils {
 
 
         db.collection("Users")
-                .document(Googlesignin.userEmail)
+                .document(""+Googlesignin.userEmail)
                 .collection("User Data")
-                .document("User Data Document")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-
-                            String fullName = (String)(task.getResult().get("First Name")) + (String)(task.getResult().get("Last Name"));
-                            String email = (String)(task.getResult().get("Email Address"));
-
-                        } else {
-                            Log.d("No fetch", "Error getting documents: ", task.getException());
+                        try {
+                            fullName = (String)(document.getString("First Name")) + " " + (String)(document.getString("Last Name"));
+                            email = (String)(document.getString("Email Address"));
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
                         }
-                    }
+                    } 
                 });
-
-        
-
-
-
-
-
-
-
 
         int fontSize = 35;
         paint.setTextSize(fontSize);
@@ -130,14 +118,11 @@ public class PdfUtils {
         Typeface typeface = Typeface.create("sans-serif", Typeface.BOLD);
         paint.setTypeface(typeface);
 
-
-        String name = "";
-
-        float textWidth = paint.measureText(name);
+        float textWidth = paint.measureText(fullName);
 
         // Calculate the starting x position for the text to be centered
         float x = (canvasWidth - textWidth) / 2;
-        page.getCanvas().drawText(name, x, 50, paint);
+        page.getCanvas().drawText(fullName, x, 50, paint);
 
         // Draw a line
         page.getCanvas().drawLine(15, 65, 597, 65, paint);
@@ -185,12 +170,12 @@ public class PdfUtils {
                 "Honors Achievements",
                 "Performing Arts Achievements"};
 
-        if (((String)(document.get("Achievement Name"))) != null && !((String)(document.get("Achievement Name"))).equals("Empty Default")) {
+        if ((document.getString("Achievement Name")) != null && !((document.getString("Achievement Name"))).equals("Empty Default")) {
 
-            currentAchievementNames.add((String) (document.get("Achievement Name")));
-            currentAchievementDescriptions.add((String) (document.get("Achievement Description")));
+            currentAchievementNames.add(document.getString("Achievement Name"));
+            currentAchievementDescriptions.add(document.getString("Achievement Description"));
             if (document.get("Achievement Image") != null) {
-                currentAchievementPhotos.add(Uri.parse((String)(document.get("Achievement Image"))));
+                currentAchievementPhotos.add(Uri.parse(document.getString("Achievement Image")));
             } else {
                 currentAchievementPhotos.add(null);
             }
